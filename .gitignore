@@ -10,14 +10,3 @@ mujoco_playground/external_deps/
 mujoco_playground/_src/__pycache__/
 mujoco_playground/_src/dm_control_suite/
 mujoco_playground/_src/locomotion/
-# # Ignore everything by default
-# *
-
-# # But un-ignore (whitelist) the specific folders and their contents
-# !learning/
-# !mujoco_playground/_src/
-# !mujoco_playground/config/
-# !mujoco_playground/experimental/
-
-# # Also, don't ignore the .gitignore file itself
-# !.gitignore
