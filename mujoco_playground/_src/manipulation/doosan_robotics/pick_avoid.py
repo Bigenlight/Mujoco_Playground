@@ -84,7 +84,8 @@ class DSRPickCubeAvoiding(dsr.PandaBase):
 
   # 에피소드 시작시 초기화 작업, 하나의 에피소드가 한번의 pick-and-place 작업 시도를 의미
   def reset(self, rng: jax.Array) -> State:
-    rng, rng_box, rng_target = jax.random.split(rng, 3)
+    # rng, rng_box, rng_target = jax.random.split(rng, 3)
+    rng, rng_box, rng_target, rng_obstacle_z = jax.random.split(rng, 4) # Add RNG for obstacle
 
     # intialize box position
     box_pos = (
@@ -130,6 +131,16 @@ class DSRPickCubeAvoiding(dsr.PandaBase):
       perturb_theta = jax.random.uniform(rng_theta, maxval=np.deg2rad(45))
       target_quat = math.axis_angle_to_quat(perturb_axis, perturb_theta)
 
+    # Initialize obstacle position
+    obstacle_final_x = self._init_obstacle_pos_xml[0]
+    obstacle_final_y = self._init_obstacle_pos_xml[1]
+    # Z is its XML base Z (0.3) +/- 0.2, so range is [0.1, 0.5]
+    random_z_offset = jax.random.uniform(rng_obstacle_z, (), minval=0.0, maxval=0.2)
+    obstacle_final_z = self._init_obstacle_pos_xml[2] + random_z_offset 
+    
+    obstacle_final_pos = jp.array([obstacle_final_x, obstacle_final_y, obstacle_final_z])
+    obstacle_final_quat = jp.array([1.0, 0.0, 0.0, 0.0], dtype=float) # Default identity
+
 
     # initialize data
     init_q = (
@@ -145,11 +156,20 @@ class DSRPickCubeAvoiding(dsr.PandaBase):
     ) # 그것을 mjx_env.init에 넣어줌, 이를 통해서 시뮬레이션을 초기 상태를 바꿈
 
     # set target mocap position # 위에서 설정했던 목표가 이제 data에 들어감
-    data = data.replace(
-        mocap_pos=data.mocap_pos.at[self._mocap_target, :].set(target_pos), # 위에서 설정한 목표 위치
-        mocap_quat=data.mocap_quat.at[self._mocap_target, :].set(target_quat),# 위에서 설정한 목표 orientation
-    )
+    # data = data.replace(
+    #     mocap_pos=data.mocap_pos.at[self._mocap_target, :].set(target_pos), # 위에서 설정한 목표 위치
+    #     mocap_quat=data.mocap_quat.at[self._mocap_target, :].set(target_quat),# 위에서 설정한 목표 orientation
+    # )
+    current_mocap_pos = data.mocap_pos.at[self._mocap_target, :].set(target_pos)
+    current_mocap_quat = data.mocap_quat.at[self._mocap_target, :].set(target_quat)
 
+    current_mocap_pos = current_mocap_pos.at[self._obstacle_mocapid, :].set(obstacle_final_pos)
+    current_mocap_quat = current_mocap_quat.at[self._obstacle_mocapid, :].set(obstacle_final_quat)
+    
+    data = data.replace(
+        mocap_pos=current_mocap_pos,
+        mocap_quat=current_mocap_quat,
+    )
     # initialize env state and info
     # 강화학습 루프가 사용할 초기값.
     metrics = {
@@ -294,7 +314,8 @@ class DSRPickCubeAvoiding(dsr.PandaBase):
     gripper_ctrl = data.ctrl[6:7]  # Just the gripper control 
     
     # 추가
-    obstacle_pos = data.xpos[self._obstacle_geom]
+    # obstacle_pos = data.xpos[self._obstacle_geom]
+    obstacle_pos = data.xpos[self._obstacle_body] # 
 
     # 모든 요소(피쳐)를 하나의 벡터로 통합
     obs = jp.concatenate([

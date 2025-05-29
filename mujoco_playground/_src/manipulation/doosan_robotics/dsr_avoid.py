@@ -124,17 +124,21 @@ class PandaBase(mjx_env.MjxEnv):
     self._floor_geom = self._mj_model.geom("floor").id
     
     
-    # # 장애물 body에 속한 geom들의 ID를 저장
-    # self._obstacle_geoms_ids = []
-    # obstacle_body_id = self._mj_model.body("obstacle").id
-    # for geom_id in range(self._mj_model.ngeom):
-    #     if self._mj_model.geom_bodyid[geom_id] == obstacle_body_id:
-    #         self._obstacle_geoms_ids.append(geom_id)
+
+    # Obstacle
+    self._obstacle_body = self._mj_model.body("obstacle").id # Store obstacle body ID
+    if self._mj_model.body_mocapid[self._obstacle_body] == -1:
+        raise ValueError(
+            "Obstacle body 'obstacle' is not a mocap body. "
+            "Please add mocap=\"true\" to the 'obstacle' body in the XML file."
+        )
+    self._obstacle_mocapid = self._mj_model.body_mocapid[self._obstacle_body] # Get mocap ID
+    self._init_obstacle_pos_xml = self._mj_model.body_pos[self._obstacle_body].copy() # Store its XML base position
     
-    self._obstacle_geom = self._mj_model.geom("obstacle").id
+    self._obstacle_geom = self._mj_model.geom("obstacle").id # For collision checking
     self._box_geom = self._mj_model.geom("box").id
 
-    self._init_q = self._mj_model.keyframe(keyframe).qpos
+    self._init_q = self._mj_model.keyframe(keyframe).qpos.copy()
     self._init_obj_pos = jp.array(
         self._init_q[self._obj_qposadr : self._obj_qposadr + 3],
         dtype=jp.float32,

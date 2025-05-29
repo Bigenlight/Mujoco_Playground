@@ -131,7 +131,7 @@ def brax_ppo_config(env_name: str) -> config_dict.ConfigDict:
     # )
 
   elif env_name.startswith("_DSRPickCubeAvoiding"): # to do : might change name
-    rl_config.num_timesteps = 10_000_000
+    rl_config.num_timesteps = 100_000_000
     # rl_config.num_evals = 4
     rl_config.num_evals = 5
     rl_config.unroll_length = 10
