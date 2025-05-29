@@ -1,0 +1,50 @@
+{
+    "action_repeat": 1,
+    "action_scale": 0.5,
+    "ctrl_dt": 0.05,
+    "ema_alpha": 1.0,
+    "episode_length": 1000,
+    "history_len": 1,
+    "obs_noise": {
+        "level": 1.0,
+        "random_ori_injection_prob": 0.0,
+        "scales": {
+            "cube_ori": 0.1,
+            "cube_pos": 0.02,
+            "joint_pos": 0.05
+        }
+    },
+    "pert_config": {
+        "angular_velocity_pert": [
+            0.0,
+            0.5
+        ],
+        "enable": false,
+        "linear_velocity_pert": [
+            0.0,
+            3.0
+        ],
+        "pert_duration_steps": [
+            1,
+            100
+        ],
+        "pert_wait_steps": [
+            60,
+            150
+        ]
+    },
+    "reward_config": {
+        "scales": {
+            "action_rate": -0.001,
+            "energy": -0.001,
+            "hand_pose": -0.5,
+            "joint_vel": 0.0,
+            "orientation": 5.0,
+            "position": 0.5,
+            "termination": -100.0
+        },
+        "success_reward": 100.0
+    },
+    "sim_dt": 0.01,
+    "success_threshold": 0.1
+}
