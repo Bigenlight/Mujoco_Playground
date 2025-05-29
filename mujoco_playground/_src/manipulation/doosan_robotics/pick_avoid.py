@@ -48,8 +48,8 @@ def default_config() -> config_dict.ConfigDict:
               no_floor_collision=0.25,
               # Arm stays close to target pose.
               robot_target_qpos=0.3,
-              # 추가
-              collision_obstacle=0.25,  # 장애물과 충돌하지 않도록
+              # 추가 (계속 추가해도 상관 없는 듯)
+              no_obstacle_collision=0.25,  # 장애물과 충돌하지 않도록
           )
       ),
   )
