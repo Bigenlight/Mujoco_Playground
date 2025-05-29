@@ -1,0 +1,15 @@
+{
+    "action_repeat": 1,
+    "action_scale": 0.015,
+    "ctrl_dt": 0.02,
+    "episode_length": 250,
+    "reward_config": {
+        "scales": {
+            "box_handover": 4,
+            "gripper_box": 1,
+            "handover_target": 8,
+            "no_table_collision": 0.3
+        }
+    },
+    "sim_dt": 0.005
+}
