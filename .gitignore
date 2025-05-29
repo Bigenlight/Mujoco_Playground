@@ -1,0 +1,12 @@
+# filepath: /home/theochoi/Playground/mujoco_playground/.gitignore
+# Ignore everything by default
+*
+
+# But un-ignore (whitelist) the specific folders and their contents
+!learning/
+!mujoco_playground/_src/
+!mujoco_playground/config/
+!mujoco_playground/experimental/
+
+# Also, don't ignore the .gitignore file itself
+!.gitignore
