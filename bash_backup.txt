@@ -1,0 +1,8 @@
+# Playground
+export JAX_DEFAULT_MATMUL_PRECISION=highest
+
+
+#mujoco
+export MUJOCO_DIR=~/mujoco/mujoco-3.3.2
+source ~/mujoco_ros2_control/install/local_setup.bash
+alias sim='cd && cd mujoco/mujoco-3.3.2/bin/ && ./simulate'
