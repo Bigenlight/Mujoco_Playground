@@ -144,7 +144,7 @@ def brax_ppo_config(env_name: str) -> config_dict.ConfigDict:
     # rl_config.num_envs = 2048
     # rl_config.num_envs = 1024
     # rl_config.num_envs = 8
-    rl_config.num_envs = 4096
+    rl_config.num_envs = 2048
     rl_config.batch_size = 512
     # rl_config.batch_size = 128
     rl_config.network_factory.policy_hidden_layer_sizes = (32, 32, 32, 32)

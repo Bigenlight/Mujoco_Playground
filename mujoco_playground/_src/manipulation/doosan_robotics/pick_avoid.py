@@ -49,7 +49,7 @@ def default_config() -> config_dict.ConfigDict:
               # Arm stays close to target pose.
               robot_target_qpos=0.3,
               # 추가 (계속 추가해도 상관 없는 듯)
-              no_obstacle_collision=0.25,  # 장애물과 충돌하지 않도록
+              no_obstacle_collision=0.1,  # 장애물과 충돌하지 않도록
           )
       ),
   )
@@ -115,7 +115,7 @@ class DSRPickCubeAvoiding(dsr.PandaBase):
             rng_target,
             (3,),
             minval=jp.array([-0.2, 0.3, 0.0]), # 박스 목표 위치 최소
-            maxval=jp.array([0.2, 0.6, 0.0]), # 최대
+            maxval=jp.array([0.2, 0.5, 0.1]), # 최대
         )
         + self._init_obj_pos
     )
