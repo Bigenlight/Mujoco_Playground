@@ -108,6 +108,12 @@ class PandaBase(mjx_env.MjxEnv):
     self._right_finger_geom = self._mj_model.geom("right_pad1").id
     # self._hand_geom = self._mj_model.geom("hand_capsule").id
     self._hand_geom = self._mj_model.geom("hand_box").id
+    self._link_1_geom = self._mj_model.geom("link_1_c").id
+    self._link_2_geom = self._mj_model.geom("link_2_c").id
+    self._link_3_geom = self._mj_model.geom("link_3_c").id
+    self._link_4_geom = self._mj_model.geom("link_4_c").id
+    self._link_5_geom = self._mj_model.geom("link_5_c").id
+    self._link_6_geom = self._mj_model.geom("link_6_c").id
 
     self._obj_body = self._mj_model.body(obj_name).id
     self._obj_qposadr = self._mj_model.jnt_qposadr[

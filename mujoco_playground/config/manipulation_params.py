@@ -120,7 +120,8 @@ def brax_ppo_config(env_name: str) -> config_dict.ConfigDict:
     # rl_config.num_envs = 1024
     # rl_config.num_envs = 8
     rl_config.num_envs = 4096
-    rl_config.batch_size = 512
+    # rl_config.batch_size = 512
+    rl_config.batch_size = 256
     # rl_config.batch_size = 128
     rl_config.network_factory.policy_hidden_layer_sizes = (32, 32, 32, 32)
     # rl_config.network_factory = config_dict.create(
@@ -131,9 +132,9 @@ def brax_ppo_config(env_name: str) -> config_dict.ConfigDict:
     # )
 
   elif env_name.startswith("_DSRPickCubeAvoiding"): # to do : might change name
-    rl_config.num_timesteps = 100_000_000
+    rl_config.num_timesteps = 10_000_000
     # rl_config.num_evals = 4
-    rl_config.num_evals = 5
+    rl_config.num_evals = 20
     rl_config.unroll_length = 10
     rl_config.num_minibatches = 32
     # rl_config.num_minibatches = 16
@@ -145,7 +146,9 @@ def brax_ppo_config(env_name: str) -> config_dict.ConfigDict:
     # rl_config.num_envs = 1024
     # rl_config.num_envs = 8
     rl_config.num_envs = 2048
+    # rl_config.num_envs = 1024
     rl_config.batch_size = 512
+    # rl_config.batch_size = 256
     # rl_config.batch_size = 128
     rl_config.network_factory.policy_hidden_layer_sizes = (32, 32, 32, 32)
     # rl_config.network_factory = config_dict.create(

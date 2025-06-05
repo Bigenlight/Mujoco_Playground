@@ -49,7 +49,7 @@ def default_config() -> config_dict.ConfigDict:
               # Arm stays close to target pose.
               robot_target_qpos=0.3,
               # 추가 (계속 추가해도 상관 없는 듯)
-              no_obstacle_collision=0.1,  # 장애물과 충돌하지 않도록
+              no_obstacle_collision=0.3,  # 장애물과 충돌하지 않도록
           )
       ),
   )
@@ -114,8 +114,8 @@ class DSRPickCubeAvoiding(dsr.PandaBase):
         jax.random.uniform(
             rng_target,
             (3,),
-            minval=jp.array([-0.2, 0.3, 0.0]), # 박스 목표 위치 최소
-            maxval=jp.array([0.2, 0.5, 0.1]), # 최대
+            minval=jp.array([-0.2, 0.4, 0.0]), # 박스 목표 위치 최소
+            maxval=jp.array([0.2, 0.6, 0.1]), # 최대
         )
         + self._init_obj_pos
     )
@@ -135,7 +135,7 @@ class DSRPickCubeAvoiding(dsr.PandaBase):
     obstacle_final_x = self._init_obstacle_pos_xml[0]
     obstacle_final_y = self._init_obstacle_pos_xml[1]
     # Z is its XML base Z (0.3) +/- 0.2, so range is [0.1, 0.5]
-    random_z_offset = jax.random.uniform(rng_obstacle_z, (), minval=0.0, maxval=0.2)
+    random_z_offset = jax.random.uniform(rng_obstacle_z, (), minval=0.0, maxval=0.5)
     obstacle_final_z = self._init_obstacle_pos_xml[2] + random_z_offset 
     
     obstacle_final_pos = jp.array([obstacle_final_x, obstacle_final_y, obstacle_final_z])
@@ -266,6 +266,11 @@ class DSRPickCubeAvoiding(dsr.PandaBase):
             self._hand_geom,
             # pinch 또한 지면에 닿지 않도록
             self._gripper_site,
+            self._link_2_geom,
+            self._link_3_geom,
+            self._link_4_geom,
+            self._link_5_geom,
+            self._link_6_geom,
         ]
     ]
     floor_collision = sum(hand_floor_collision) > 0 # True False를 합산해서 하나라도 1이면 True 반환
@@ -279,6 +284,11 @@ class DSRPickCubeAvoiding(dsr.PandaBase):
             self._right_finger_geom,
             self._hand_geom,
             self._box_geom,
+            self._link_2_geom,
+            self._link_3_geom,
+            self._link_4_geom,
+            self._link_5_geom,
+            self._link_6_geom,
         ]
     ]
     obstacle_collision = sum(hand_obstacle_collision) > 0 # True False를 합산해서 하나라도 1이면 True 반환
