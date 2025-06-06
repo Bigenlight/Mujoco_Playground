@@ -14,7 +14,7 @@
     </body>
 
     <!-- 장애물 -->
-    <body mocap="true" name="obstacle" pos="0.75 0.15 -0.1"> <!-- MODIFIED: Added mocap="true" -->
+    <body mocap="true" name="obstacle" pos="0.75 0.15 -0.15"> <!-- MODIFIED: Added mocap="true" -->
       <!-- Ensure there is NO <freejoint/> here if you added one previously -->
       <geom type="box" name="obstacle" size="0.3 0.01 0.1"
        rgba="0.2 0.1 0.1 0.3" contype="1" conaffinity="1"/>

@@ -43,13 +43,13 @@ def default_config() -> config_dict.ConfigDict:
               # Gripper goes to the box.
               gripper_box=4.0,
               # Box goes to the target mocap.
-              box_target=8.0,
+              box_target=12.0,
               # Do not collide the gripper with the floor.
               no_floor_collision=0.25,
               # Arm stays close to target pose.
               robot_target_qpos=0.3,
               # 추가 (계속 추가해도 상관 없는 듯)
-              no_obstacle_collision=0.3,  # 장애물과 충돌하지 않도록
+              no_obstacle_collision=0.25,  # 장애물과 충돌하지 않도록
           )
       ),
   )
@@ -135,7 +135,7 @@ class DSRPickCubeAvoiding(dsr.PandaBase):
     obstacle_final_x = self._init_obstacle_pos_xml[0]
     obstacle_final_y = self._init_obstacle_pos_xml[1]
     # Z is its XML base Z (0.3) +/- 0.2, so range is [0.1, 0.5]
-    random_z_offset = jax.random.uniform(rng_obstacle_z, (), minval=0.0, maxval=0.5)
+    random_z_offset = jax.random.uniform(rng_obstacle_z, (), minval=0.0, maxval=0.4)
     obstacle_final_z = self._init_obstacle_pos_xml[2] + random_z_offset 
     
     obstacle_final_pos = jp.array([obstacle_final_x, obstacle_final_y, obstacle_final_z])
