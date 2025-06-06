@@ -114,8 +114,8 @@ class DSRPickCubeAvoiding(dsr.PandaBase):
         jax.random.uniform(
             rng_target,
             (3,),
-            minval=jp.array([-0.2, 0.4, 0.0]), # 박스 목표 위치 최소
-            maxval=jp.array([0.2, 0.6, 0.1]), # 최대
+            minval=jp.array([-0.2, 0.6, 0.0]), # 박스 목표 위치 최소
+            maxval=jp.array([0.2, 0.8, 0.1]), # 최대
         )
         + self._init_obj_pos
     )

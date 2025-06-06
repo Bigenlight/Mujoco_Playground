@@ -2,7 +2,7 @@
   <include file="mjx_scene.xml"/>
 
   <worldbody>
-    <body name="box" pos="0.75 -0.2 0.03">
+    <body name="box" pos="0.75 -0.3 0.03">
       <freejoint/>
       <geom type="box" name="box" size="0.02 0.02 0.03" condim="3"
        friction="1 .03 .003" rgba="0 1 0 1" contype="1" conaffinity="1" solref="0.01 1"/>
@@ -14,7 +14,7 @@
     </body>
 
     <!-- 장애물 -->
-    <body mocap="true" name="obstacle" pos="0.75 0.1 -0.1"> <!-- MODIFIED: Added mocap="true" -->
+    <body mocap="true" name="obstacle" pos="0.75 0.15 -0.1"> <!-- MODIFIED: Added mocap="true" -->
       <!-- Ensure there is NO <freejoint/> here if you added one previously -->
       <geom type="box" name="obstacle" size="0.3 0.01 0.1"
        rgba="0.2 0.1 0.1 0.3" contype="1" conaffinity="1"/>
