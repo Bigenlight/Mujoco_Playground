@@ -1,0 +1,16 @@
+{
+    "action_repeat": 1,
+    "action_scale": 0.04,
+    "ctrl_dt": 0.02,
+    "episode_length": 250,
+    "reward_config": {
+        "scales": {
+            "box_target": 12.0,
+            "gripper_box": 4.0,
+            "no_floor_collision": 0.25,
+            "no_obstacle_collision": 0.25,
+            "robot_target_qpos": 0.3
+        }
+    },
+    "sim_dt": 0.005
+}
